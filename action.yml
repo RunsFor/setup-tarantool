@@ -1,0 +1,14 @@
+name: setup-tarantool
+description: 'Setup tarantool'
+
+inputs:
+  version:
+    description: 'Choose tarantool version'
+    required: true
+    default: '2.6'
+
+runs:
+  using: "composite"
+  steps:
+    - run: ./setup.sh ${{ inputs.version }}
+      shell: bash

@@ -1,0 +1,38 @@
+name: Test setup-tarantool action
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  test-default-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+      - run: tarantool --version | grep "Tarantool 2.6"
+  test-with-version-input:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          version: 2.5
+      - run: tarantool --version | grep "Tarantool 2.5"
+  test-inside-docker-container:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: ['debian', 'ubuntu', 'centos:7', 'centos:8']
+    container:
+      image: ${{ matrix.image }}
+    steps:
+      - if: (matrix.image == 'ubuntu') || (matrix.image == 'debian')
+        run: |
+          apt-get update
+          apt-get install -y curl
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          version: 2.4
+      - run: tarantool --version | grep "Tarantool 2.4"
