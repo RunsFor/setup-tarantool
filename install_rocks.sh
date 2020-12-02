@@ -7,8 +7,11 @@ IFS=";"
 read -ra rocks <<<"$lines"
 
 for rock in "${rocks[@]}"; do
-  # TODO: Add version
-  tarantoolctl rocks install $rock
+  IFS="="
+  set -- $rock
+  name="$1"
+  version="$2"
+  tarantoolctl rocks install "$name" "$version"
 done
 
-echo "$PWD/.rocks/bin" >> $GITHUB_PATH
+echo "$PWD/.rocks/bin" >> "$GITHUB_PATH"
