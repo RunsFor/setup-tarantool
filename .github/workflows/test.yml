@@ -27,10 +27,6 @@ jobs:
     container:
       image: ${{ matrix.image }}
     steps:
-      - if: (matrix.image == 'ubuntu') || (matrix.image == 'debian')
-        run: |
-          apt-get update
-          apt-get install -y curl
       - uses: actions/checkout@v2
       - uses: ./
         with:
