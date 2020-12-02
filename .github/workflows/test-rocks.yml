@@ -1,0 +1,24 @@
+name: Test setup-tarantool action with rocks
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  test-with-one-rock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          rocks: luacheck
+      - run: tarantool --version | grep "Tarantool 2.6"
+  test-with-list-of-rock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          rocks: |
+            luacheck
+      - run: tarantool --version | grep "Tarantool 2.6"

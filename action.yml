@@ -6,9 +6,14 @@ inputs:
     description: 'Choose tarantool version'
     required: true
     default: '2.6'
+  rocks:
+    description: 'Specify a list of rocks to install'
+    required: false
 
 runs:
   using: "composite"
   steps:
     - run: ${{ github.action_path }}/install.sh ${{ inputs.version }}
-      shell: bash -x {0}
+      shell: bash
+    - run: ${{ github.action_path }}/install_rocks.sh ${{ inputs.rocks }}
+      shell: bash
