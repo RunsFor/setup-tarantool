@@ -13,6 +13,8 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: bash --version
+      shell: bash
     - run: ${{ github.action_path }}/install.sh ${{ inputs.version }}
       shell: bash
     - run: ${{ github.action_path }}/install_rocks.sh ${{ inputs.rocks }}
