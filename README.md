@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: runsfor/setup-tarantool@v0.1.0
+      - uses: runsfor/setup-tarantool@v0.1.1
         with:
           version: 2.4
 ```
@@ -25,5 +25,5 @@ jobs:
       image: centos:7
     steps:
       - uses: actions/checkout@v2
-      - uses: runsfor/setup-tarantool@v0.1.0 # defaults to 2.6
+      - uses: runsfor/setup-tarantool@v0.1.1 # defaults to 2.6
 ```

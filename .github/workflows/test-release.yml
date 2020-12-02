@@ -1,7 +1,7 @@
 name: Test setup-tarantool action release
 
 on:
-  workflow-dispatch:
+  workflow_dispatch:
     inputs:
       version:
         description: Specify version of the action to test
