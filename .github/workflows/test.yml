@@ -4,26 +4,12 @@ on:
   push:
 
 jobs:
-  test-default-version:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: $(pwd)
-      - run: tarantool --version | grep "Tarantool 2.6"
   test-default-version1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./.
       - run: tarantool --version | grep "Tarantool 2.6"
-  test-with-version-input:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: $(pwd)
-        with:
-          version: 2.5
-      - run: tarantool --version | grep "Tarantool 2.5"
   test-inside-docker-container:
     runs-on: ubuntu-latest
     strategy:
@@ -34,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: ls -la
-      - uses: $(pwd)
+      - uses: ./.
         with:
           version: 2.4
       - run: tarantool --version | grep "Tarantool 2.4"
