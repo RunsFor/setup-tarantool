@@ -1,0 +1,37 @@
+name: Test setup-tarantool action release
+
+on:
+  workflow-dispatch:
+    inputs:
+      version:
+        description: Specify version of the action to test
+        required: true
+
+jobs:
+  test-default-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ${{ github.repository }}@v${{ github.event.inputs.version }}
+      - run: tarantool --version | grep "Tarantool 2.6"
+  test-with-version-input:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ${{ github.repository }}@v${{ github.event.inputs.version }}
+        with:
+          version: 2.5
+      - run: tarantool --version | grep "Tarantool 2.5"
+  test-inside-docker-container:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: ['debian', 'ubuntu', 'centos:7', 'centos:8']
+    container:
+      image: ${{ matrix.image }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ${{ github.repository }}@v${{ github.event.inputs.version }}
+        with:
+          version: 2.4
+      - run: tarantool --version | grep "Tarantool 2.4"
