@@ -10,5 +10,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ./setup.sh ${{ inputs.version }}
+    - run: ${{ github.action_path }}/install.sh ${{ inputs.version }}
       shell: bash
