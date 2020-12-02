@@ -11,7 +11,7 @@ for rock in "${rocks[@]}"; do
   set -- $rock
   name="$1"
   version="$2"
-  tarantoolctl rocks install "$name" "$version"
+  tarantoolctl rocks install "$name $version"
 done
 
 echo "$PWD/.rocks/bin" >> "$GITHUB_PATH"
